@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,12 +29,12 @@ public class WorldGeneration {
     public void GenerateResources() {
         // Take the current chunk mesh and distribute resources
 
-        List<float> elevations = terrainGenerator.elevations;
-
         // Create a real terrain 2D map and list of vertices as Vector3s
         for (int i = 0; i < world.resources.Count; i++) {
+            int randomPos = Random.Range(1, terrainGenerator.vertices.Count);
+
             Resource resource = world.resources[i];
-            ResourceObject resourceObj = new ResourceObject(resource, new Vector3((2 * i), elevations[i], (i % 3)), objectsContainer);
+            ResourceObject resourceObj = new ResourceObject(resource, terrainGenerator.vertices[randomPos], objectsContainer);
 
             resourceObjectPool.Add(resourceObj);
 

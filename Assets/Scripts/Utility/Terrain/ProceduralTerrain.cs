@@ -17,7 +17,8 @@ public class ProceduralTerrain {
     int trianglesInChunk = 20000;
 
     // Elevations at each point in the mesh
-    public List<float> elevations;
+    List<float> elevations;
+    public List<Vector3> vertices;
 
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;
@@ -34,6 +35,7 @@ public class ProceduralTerrain {
 
         elevations = new List<float>();
 
+        // Use Triangle.NET geometry classes
         Polygon polygon = new Polygon();
         for (int i = 0; i < randomPoints; i++) {
             polygon.Add(new Vertex(Random.Range(0.0f, width), Random.Range(0.0f, depth)));
@@ -109,10 +111,12 @@ public class ProceduralTerrain {
 
 
             // Adjust height of terrain
-            chunk.transform.localScale += new Vector3(0, 5, 0);
             chunk.transform.position = terrain.transform.position;
             chunk.transform.rotation = terrain.transform.rotation;
             chunk.transform.parent = terrain.transform;
+
+            // Save references to vertex data
+            this.vertices = vertices;
         }
 
         return terrain;
