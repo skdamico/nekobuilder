@@ -21,9 +21,6 @@ public class SimplePlayerUserControl : MonoBehaviour {
 
     private void Update() {
         // Check for `gather`
-    }
-
-    private void FixedUpdate() {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
@@ -33,5 +30,8 @@ public class SimplePlayerUserControl : MonoBehaviour {
 
         player.Move(move);
         player.RotateTowards(Input.mousePosition);
+    }
+
+    private void FixedUpdate() {
     }
 }
