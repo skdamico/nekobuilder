@@ -4,58 +4,21 @@ using UnityEngine;
 
 public class World {
 
-    Tile[,] tiles;
+    public Vector2 size;
+    public List<Resource> resources;
 
-    int width;
-    public int Width {
-        get {
-            return width;
-        }
-    }
 
-    int depth;
-    public int Depth {
-        get {
-            return depth;
-        }
-    }
+    public World(Vector2 size) {
+        this.size = size;
 
-    public World(int width = 50, int depth = 50) {
-        this.width = width;
-        this.depth = depth;
-
-        tiles = new Tile[width, depth];
-
-        for (int x = 0; x < width; x++) {
-            for (int z = 0; z < depth; z++) {
-                tiles[x, z] = new Tile(this, new Vector3(x, 0, z));
-            }
+        // Generate resources
+        resources = new List<Resource>();
+        for (int i = 0; i < Random.Range(10, 20); i++) {
+            Resource resource = new Resource((Resource.ResourceKind)Random.Range(0, 3), 
+                                             (Resource.ResourceSize)Random.Range(0, 3));
+            resources.Add(resource);
         }
 
-        Debug.Log("World created with width: " + width + ", depth: " + depth);
-    }
-
-    public Tile GetTileAt(Vector3 location) {
-        if (location.x > width || location.z > depth) {
-            Debug.LogError("Tile range out of bounds");
-            return null;
-        }
-
-        return tiles[(int)location.x, (int)location.z];
-    }
-
-    // Testing
-
-    public void RandomizeTiles() {
-        for (int x = 0; x < width; x++) {
-            for (int z = 0; z < depth; z++) {
-                if (Random.Range(0, 2) == 0) {
-                    tiles[x, z].Type = Tile.TileType.Empty;
-                }
-                else {
-                    tiles[x, z].Type = Tile.TileType.Ground;
-                }
-            }
-        }
+        Debug.Log("World created with width: " + size.x + ", depth: " + size.y);
     }
 }

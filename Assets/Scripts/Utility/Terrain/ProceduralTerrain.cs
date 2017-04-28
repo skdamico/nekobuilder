@@ -17,7 +17,7 @@ public class ProceduralTerrain {
     int trianglesInChunk = 20000;
 
     // Elevations at each point in the mesh
-    private List<float> elevations;
+    public List<float> elevations;
 
     // The delaunay mesh
     private TriangleNet.Mesh mesh = null;

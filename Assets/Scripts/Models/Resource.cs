@@ -4,10 +4,35 @@ using UnityEngine;
 
 public class Resource {
 
-    public enum ResourceType { Fuel, Build, Science };
-
+    public enum ResourceKind { Fuel, Build, Science };
     public enum ResourceSize { Small, Medium, Large };
 
-    ResourceType type;
-    ResourceSize size;
+    ResourceKind _kind;
+    public ResourceKind Kind { get; protected set; }
+
+    ResourceSize _size;
+    public ResourceSize Size { get; protected set; }
+
+    float _life;
+    public float Life { get; }
+
+    public Resource(ResourceKind kind, ResourceSize size) {
+        this.Kind = kind;
+        this.Size = size;
+
+        switch (size) {
+            case ResourceSize.Small:
+                this.Life = 50.0f;
+                break;
+            case ResourceSize.Medium:
+                this.Life = 200.0f;
+                break;
+            case ResourceSize.Large:
+                this.Life = 500.0f;
+                break;
+            default:
+                Debug.LogError("Incompatible size on Resource init");
+                break;
+        }
+    }
 }
