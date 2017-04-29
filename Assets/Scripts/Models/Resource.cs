@@ -7,13 +7,9 @@ public class Resource {
     public enum ResourceKind { Fuel, Build, Science };
     public enum ResourceSize { Small, Medium, Large };
 
-    ResourceKind _kind;
     public ResourceKind Kind { get; protected set; }
-
-    ResourceSize _size;
     public ResourceSize Size { get; protected set; }
 
-    float _life;
     public float Life { get; }
 
     public Resource(ResourceKind kind, ResourceSize size) {
@@ -25,10 +21,10 @@ public class Resource {
                 this.Life = 50.0f;
                 break;
             case ResourceSize.Medium:
-                this.Life = 200.0f;
+                this.Life = 80.0f;
                 break;
             case ResourceSize.Large:
-                this.Life = 500.0f;
+                this.Life = 120.0f;
                 break;
             default:
                 Debug.LogError("Incompatible size on Resource init");

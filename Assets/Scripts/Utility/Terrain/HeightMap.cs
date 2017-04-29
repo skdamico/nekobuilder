@@ -5,7 +5,6 @@ using TriangleNet.Geometry;
 public class HeightMap {
     public enum HeightMapType { Perlin }
 
-
     public static List<float> GenerateHeightMap(int width, int height, ICollection<Vertex> vertices, HeightMapType type) {
         List<float> elevations = new List<float>();
 
@@ -23,7 +22,10 @@ public class HeightMap {
             }
 
             // Sample perlin noise to get elevations
-            foreach (Vertex vert in vertices) {
+            IEnumerator<Vertex> vertexEnumerator = vertices.GetEnumerator();
+            while(vertexEnumerator.MoveNext()) {
+                Vertex vert = vertexEnumerator.Current;
+
                 float elevation = 0.0f;
                 float amplitude = Mathf.Pow(persistence, octaves);
                 float frequency = 1.0f;

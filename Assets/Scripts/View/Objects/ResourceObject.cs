@@ -13,7 +13,6 @@ public class ResourceObject {
         this.resourceData = resourceData;
 
         view = Resources.Load<GameObject>("Prefabs/ResourcePrefab");
-
         view = MonoBehaviour.Instantiate(view, position, Quaternion.identity, parent.transform);
 
         SetupView();
@@ -21,9 +20,8 @@ public class ResourceObject {
 
 
     public void SetupView() {
-        view.SetActive(resourceData.Life > 0);
 
-        // Set color of mesh based on object type
+        // Set color of mesh based on Kind
         MeshRenderer renderer = view.GetComponent<MeshRenderer>(); 
 
         Material material;
@@ -43,5 +41,22 @@ public class ResourceObject {
                 break;
         }
         renderer.material = material;
+
+        // Set size of mesh based on Life
+        UpdateSize();
+    }
+
+    public void UpdateView() {
+        UpdateSize();
+    }
+
+    public void UpdateSize() {
+        // Do we show the resource?
+        view.SetActive(resourceData.Life > 0);
+
+        // Size: small == 50.0f Life
+        float magnitude = resourceData.Life / 50.0f;
+        Vector3 scale = view.transform.localScale;
+        view.transform.localScale = scale * magnitude;
     }
 }
